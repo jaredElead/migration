@@ -1,0 +1,233 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% block particle %}
+
+    <div id="{{ id }}" class="g-newsslider {{ particle.class|e }}" data-newsslider-autoplay="{% if particle.autoplay == 'enabled' %}true{% else %}false{% endif %}"  data-newsslider-loop="{% if particle.loop == 'enabled' %}true{% else %}false{% endif %}" data-newsslider-id="{{ id }}" data-newsslider-rtl="{% if gantry.page.direction == 'rtl' %}true{% else %}false{% endif %}"  {{ attr_extra }}>
+        <div class="g-newsslider-slides g-owlcarousel owl-carousel" data-newsslider-slides-id="{{ id }}" {% if particle.fixedheight %}style="height: {{ particle.fixedheight }}px;"{% endif %}>
+
+            {% if particle.source == 'wordpress' %}
+
+                {# Load Content From WordPress #}
+                {% set attr_extra = particle.extra|attribute_array %}
+                {% set post_settings = particle.post %}
+                {% set filter = post_settings.filter %}
+                {% set sort = post_settings.sort %}
+                {% set limit = post_settings.limit %}
+                {% set start = limit.start %}
+                {% set display = post_settings.display %}
+
+                {# Sticky Posts #}
+                {% set sticky_posts = filter.sticky ? false : true %}
+
+                {# Query Posts #}
+                {% set query_parameters = {
+                    'posts_per_page': limit.total|default('-1'),
+                    'offset': start,
+                    'orderby': sort.orderby,
+                    'order': sort.ordering,
+                    'ignore_sticky_posts': sticky_posts
+                } %}
+
+                {% if filter.posts %}
+                    {% set query_parameters = query_parameters|merge({'post__in': filter.posts|replace({' ': ',', ', ': ','})|split(',')}) %}
+                {% else %}
+                    {% set query_parameters = query_parameters|merge({'cat': filter.categories|replace({' ': ',', ', ': ','})}) %}
+                {% endif %}
+
+                {% set posts = wordpress.call('Timber::query_posts', query_parameters) %}
+                {% set total = posts.get_pagination([]).total|abs %}
+                {% set total = max(posts|length, (total * max(0, limit.total)) - 1) %}
+
+                {% for post in posts %}
+                    {% if display.image.enabled %}
+                        <div class="g-newsslider-slides-item-image" style="background-image: url({{ url(post.thumbnail.src) }})">
+                    {% endif %}
+
+                    {% if display.category.enabled %}
+                        {% set category_link = display.category.enabled == 'link' %}
+                        <span class="g-newsslider-slides-item-category">
+                            {% for category in post.categories %}
+                                {%- if category_link -%}
+                                    <a href="{{ category.link }}">
+                                        {{ category.title }}
+                                    </a>
+                                {%- else -%}
+                                    {{ category.title }}
+                                {%- endif -%}
+                                {% if not loop.last %}{{ ','|trim }}{% endif %}
+                            {% endfor %}
+                        </span>
+                    {% endif %}
+
+                    {% if display.date.enabled %}
+                        <span class="g-newsslider-slides-item-date">
+                          {% if display.date.enabled == 'modified' %}
+                              {{ post.post_modified|date(display.date.format) }}
+                          {% else %}
+                              {{ post.post_date|date(display.date.format) }}
+                          {% endif %}
+                      </span>
+                    {% endif %}
+
+                    <div class="g-newsslider-slides-item-content">
+                        {% if display.title.enabled %}
+                            <div class="g-newsslider-slides-item-title">
+                                <a href="{{ post.link }}">
+                                    {{ display.title.limit ? post.title|truncate_text(display.title.limit) : post.title }}
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        {% if display.author.enabled %}
+                            <div class="g-newsslider-slides-item-meta">
+                                <div class="g-newsslider-slides-item-author">
+                                    {{ post.author.name }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if display.read_more.enabled %}
+                            <a href="{{ post.link|e }}" title="{{ post.title|e }}" class="button {{ display.read_more.css }}">{{ display.read_more.label|default('Read More...') }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+
+            {% else %}
+
+                {% for item in particle.items %}
+                    {% if item.image %}
+                        <div class="g-newsslider-slides-item-image" style="background-image: url({{ url(item.image) }})">
+                    {% endif %}
+
+                    {% if item.categoryname %}
+                        <span class="g-newsslider-slides-item-category">
+                            {% if item.categorylink %}
+                                <a href="{{ item.categorylink }}">
+                                    {{ item.categoryname }}
+                                </a>
+                            {% else %}
+                                {{ item.categoryname }}
+                            {% endif %}
+                        </span>
+                    {% endif %}
+
+                    {% if item.date %}
+                        <span class="g-newsslider-slides-item-date">
+                            {{ item.date|date(item.date_format|default('l, F d, Y')) }}
+                        </span>
+                    {% endif %}
+
+                    <div class="g-newsslider-slides-item-content">
+                        {% if item.avatar %}
+                            <div class="g-newsslider-slides-item-avatar">
+                                <img src="{{ url(item.avatar) }}" alt="{{ item.author|e }}">
+                            </div>
+                        {% endif %}
+
+                        {% if item.title %}
+                            <div class="g-newsslider-slides-item-title">
+                                <a href="{{ item.link|default('#') }}">
+                                    {{ item.title|raw }}
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        {% if item.date or item.author or item.categoryname %}
+                            <div class="g-newsslider-slides-item-meta">
+                                {% if item.author %}
+                                    <div class="g-newsslider-slides-item-author">
+                                        {{ item.author }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+        <div class="g-newsslider-carousel" data-newsslider-carousel-id="{{ id }}" {% if particle.fixedheight %}style="height: {{ particle.fixedheight }}px;"{% endif %}>
+
+            {% if particle.source == 'wordpress' %}
+
+                {% for post in posts %}
+                    <div class="g-newsslider-carousel-item-container">
+                        <div class="g-newsslider-carousel-item-content">
+
+                            {% if display.category.enabled %}
+                                {% set category_link = display.category.enabled == 'link' %}
+                                <span class="g-newsslider-carousel-item-category">
+                                    {% for category in post.categories %}
+                                        {%- if category_link -%}
+                                            <a href="{{ category.link }}">
+                                                {{ category.title }}
+                                            </a>
+                                        {%- else -%}
+                                            {{ category.title }}
+                                        {%- endif -%}
+                                        {% if not loop.last %}{{ ','|trim }}{% endif %}
+                                    {% endfor %}
+                                </span>
+                            {% endif %}
+
+                            {% if display.title.enabled %}
+                                <div class="g-newsslider-carousel-item-title">
+                                    {{ display.title.limit ? post.title|truncate_text(display.title.limit) : post.title }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                {% for item in particle.items %}
+                    <div class="g-newsslider-carousel-item-container">
+                        <div class="g-newsslider-carousel-item-content">
+                         {% if item.categoryname %}
+                            <span class="g-newsslider-carousel-item-category">
+                                {% if item.categorylink %}
+                                    <a href="{{ item.categorylink }}">
+                                        {{ item.categoryname }}
+                                    </a>
+                                {% else %}
+                                    {{ item.categoryname }}
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                        {% if item.title %}
+                            <div class="g-newsslider-carousel-item-title">
+                                {{ item.title|raw }}
+                            </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript_footer %}
+{% do gantry.load('jquery') %}
+{% do gantry.document.addScript(url('gantry-theme://js/jquery.matchHeight-min.js'), 10, 'footer') %}
+{% do gantry.document.addScript(url('gantry-theme://js/jquery.mThumbnailScroller.js'), 10, 'footer') %}
+{% do gantry.document.addScript(url('gantry-theme://js/owlcarousel.js'), 10, 'footer') %}
+{% do gantry.document.addScript(url('gantry-theme://js/newsslider.init.js'), 10, 'footer') %}
+{% endblock %}

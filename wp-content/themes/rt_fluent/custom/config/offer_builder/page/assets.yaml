@@ -1,0 +1,8 @@
+javascript:
+  -
+    location: 'gantry-assets://js/automail.js'
+    inline: ''
+    in_footer: '0'
+    extra: {  }
+    priority: '0'
+    name: 'New item'

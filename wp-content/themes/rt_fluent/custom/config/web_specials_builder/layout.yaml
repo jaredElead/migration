@@ -1,0 +1,186 @@
+version: 2
+preset:
+  image: 'gantry-admin://images/layouts/default.png'
+  name: default
+  timestamp: 1524692597
+layout:
+  top: {  }
+  /container-top/:
+    -
+      -
+        'navigation 90': {  }
+        slideshow: {  }
+      -
+        'sidebar-top 10': {  }
+  header: {  }
+  above: {  }
+  showcase: {  }
+  utility: {  }
+  feature: {  }
+  /container-main/:
+    -
+      -
+        'sidebar 5': {  }
+      -
+        'mainbar 70':
+          -
+            - system-content-5907
+      -
+        'aside 25':
+          -
+            - spacer-8479
+  expanded: {  }
+  extension: {  }
+  bottom: {  }
+  footer: {  }
+  copyright: {  }
+  offcanvas: {  }
+structure:
+  top:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  navigation:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  slideshow:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  sidebar-top:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  container-top:
+    attributes:
+      boxed: ''
+      class: ''
+      extra: {  }
+  header:
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  above:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  showcase:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  utility:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  feature:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  sidebar:
+    type: section
+    subtype: aside
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  mainbar:
+    type: section
+    subtype: main
+    title: Main
+    attributes:
+      class: ''
+  aside:
+    attributes:
+      class: ''
+  container-main:
+    attributes:
+      boxed: ''
+      class: g-default-main
+      extra: {  }
+  expanded:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  extension:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  bottom:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  footer:
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  copyright:
+    type: section
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+  offcanvas:
+    inherit:
+      outline: offer_builder
+      include:
+        - attributes
+        - block
+        - children
+content:
+  system-content-5907:
+    title: Content

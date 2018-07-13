@@ -1,0 +1,98 @@
+<?php
+return [
+    '@class' => 'Gantry\\Component\\File\\CompiledYamlFile',
+    'filename' => '/var/www/vhosts/rzn8.com/elead.rzn8.com/wp-content/themes/rt_fluent/custom/particles/contenttabs.yaml',
+    'modified' => 1526399787,
+    'data' => [
+        'name' => 'Content Tabs',
+        'description' => 'Display Content Tabs.',
+        'type' => 'particle',
+        'icon' => 'fa-table',
+        'configuration' => [
+            'caching' => [
+                'type' => 'static'
+            ]
+        ],
+        'form' => [
+            'fields' => [
+                'enabled' => [
+                    'type' => 'input.checkbox',
+                    'label' => 'Enabled',
+                    'description' => 'Globally enable icon menu particles.',
+                    'default' => true
+                ],
+                'class' => [
+                    'type' => 'input.selectize',
+                    'label' => 'CSS Classes',
+                    'description' => 'CSS class name for the particle.'
+                ],
+                'title' => [
+                    'type' => 'input.text',
+                    'label' => 'Title',
+                    'description' => 'Customize the title text.',
+                    'placeholder' => 'Enter title'
+                ],
+                'animation' => [
+                    'type' => 'select.select',
+                    'label' => 'Animation Type',
+                    'description' => 'Set the animation type.',
+                    'default' => 'fade',
+                    'options' => [
+                        'left' => 'Slide Left',
+                        'right' => 'Slide Right',
+                        'up' => 'Slide Up',
+                        'down' => 'Slide Down',
+                        'fade' => 'Fade',
+                        'toggle' => 'Toggle'
+                    ]
+                ],
+                'duration' => [
+                    'type' => 'input.text',
+                    'label' => 'Duration',
+                    'description' => 'Customize the animation duration.',
+                    'placeholder' => 500
+                ],
+                'numbers' => [
+                    'type' => 'select.select',
+                    'label' => 'Number Tabs',
+                    'description' => 'Displays the number of tab next to it.',
+                    'default' => 'enabled',
+                    'options' => [
+                        'enabled' => 'Enabled',
+                        'disabled' => 'Disabled'
+                    ]
+                ],
+                'items' => [
+                    'type' => 'collection.list',
+                    'array' => true,
+                    'label' => 'Tabs',
+                    'description' => 'Create each ContentTabs item to display.',
+                    'value' => 'title',
+                    'ajax' => true,
+                    'fields' => [
+                        '.title' => [
+                            'type' => 'input.text',
+                            'label' => 'Title',
+                            'description' => 'Enter the Tab name.'
+                        ],
+                        '.description' => [
+                            'type' => 'textarea.textarea',
+                            'label' => 'Description',
+                            'description' => 'Enter the Tab description.'
+                        ],
+                        '.image' => [
+                            'type' => 'input.imagepicker',
+                            'label' => 'Image',
+                            'description' => 'Select desired image.'
+                        ],
+                        '.content' => [
+                            'type' => 'textarea.textarea',
+                            'label' => 'Content',
+                            'description' => 'Enter the main tab content.'
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+];

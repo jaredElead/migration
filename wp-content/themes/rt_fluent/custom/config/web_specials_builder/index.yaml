@@ -1,0 +1,71 @@
+name: web_specials_builder
+timestamp: 1530049864
+version: 7
+preset:
+  image: 'gantry-admin://images/layouts/default.png'
+  name: default
+  timestamp: 1524692597
+positions: {  }
+sections:
+  top: Top
+  navigation: Navigation
+  slideshow: Slideshow
+  sidebar-top: Sidebar-top
+  above: Above
+  showcase: Showcase
+  utility: Utility
+  feature: Feature
+  expanded: Expanded
+  extension: Extension
+  bottom: Bottom
+  copyright: Copyright
+  header: Header
+  sidebar: Sidebar
+  aside: Aside
+  mainbar: Main
+  footer: Footer
+  offcanvas: Offcanvas
+particles:
+  content:
+    system-content-5907: Content
+  spacer:
+    spacer-8479: Spacer
+    spacer-5199: Spacer
+  messages:
+    system-messages-6411: 'System Messages'
+  branding:
+    branding-5432: Branding
+  mobile-menu:
+    mobile-menu-7700: Mobile-menu
+  logo:
+    logo-8277: Logo
+  menu:
+    menu-2720: Menu
+  search:
+    search-7983: Search
+inherit:
+  offer_builder:
+    top: top
+    slideshow: slideshow
+    sidebar-top: sidebar-top
+    header: header
+    above: above
+    showcase: showcase
+    utility: utility
+    feature: feature
+    sidebar: sidebar
+    expanded: expanded
+    extension: extension
+    bottom: bottom
+    footer: footer
+    copyright: copyright
+    offcanvas: offcanvas
+    system-messages-6411: system-messages-9828
+    spacer-5199: spacer-5486
+    branding-5432: branding-4688
+    mobile-menu-7700: mobile-menu-7951
+  default:
+    navigation: navigation
+    logo-8277: logo-5992
+    menu-2720: menu-2350
+    search-7983: search-8428

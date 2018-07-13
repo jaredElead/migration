@@ -1,0 +1,114 @@
+.offer-wrapper{
+	
+	background-color:rgba(0,0,0,.02);
+	padding:0;
+	margin:10px 0 0px 0;
+	border:1px solid rgba(0,0,0,.15);
+}
+.offer-wrapper:after{
+content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+.offer-wrapper .offer-image{
+    width:30%;
+    height:100px;
+    display:inline-block;
+    vertical-align:top;
+}
+.offer-wrapper .offer-image img{
+    height:100px;
+}
+.offer-wrapper .offer-content{
+width:70%;
+display:inline-block;
+padding:10px 10px 10px 20px;
+}
+.offer-wrapper .offer-nav{
+    width:100%;
+font-size:.25rem;
+}
+.offer-wrapper .offer-nav .config_icon{
+    font-size:1rem;
+}
+.offer-wrapper .offer-nav span{
+float:right;
+color:#999999;
+}
+.offer-wrapper h5{
+margin:0;
+}
+.config .button, .panel-btn-wrapper .button{
+padding: 0.5rem 1rem;
+padding-bottom: 0.5rem;
+border-radius: .5rem;
+margin-left:7px;
+margin-bottom:0;
+}
+.config .button.button-grey{
+	color:#fff!important;
+    background: rgba(0,0,0,.2);
+    border-color: rgba(0,0,0,.2);
+}
+.offer-text{
+	margin: 0;
+}
+.offer-text small{
+	color:#666;
+	font-size:.7rem;
+}
+.btn-wrapper, .panel-btn-wrapper{
+	width:100%;
+	text-align:right;
+    padding:20px;
+
+}
+.config .btn-wrapper {
+    width:100%;
+    text-align:right;
+padding-bottom:0;
+}
+.panel-btn-wrapper{
+   width:100%;
+    text-align:right;
+    pading:20px;
+}
+.offer-wrapper .new_tag{
+	
+      background-color: #2ac72a;
+    width: 60px;
+    float: right;
+    position: relative;
+    top: -20px;
+    left: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: .75rem;
+    color: #fff;
+    font-weight: 900;
+    padding: .5rem;
+    text-shadow: 1px 1px 1px #126312;
+}
+.config{
+/*background:rgba(0,0,0,.08);*/
+background: #d6d6d6; /* Old browsers */
+background: -moz-linear-gradient(top, #d6d6d6 0%, #f4f4f4 6%, #efefef 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #d6d6d6 0%,#f4f4f4 6%,#efefef 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #d6d6d6 0%,#f4f4f4 6%,#efefef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d6d6', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+
+
+
+    width:100%;
+    padding:1rem;
+    display:none;
+    border-top:1px solid rgba(0,0,0,.25);
+}
+.config .primary_radio{
+    float:right;
+}
+.divfooter {
+display:none !important;
+}
