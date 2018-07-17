@@ -4,8 +4,10 @@ if ( ! defined('ABSPATH') ) {
     /** Set up WordPress environment */
     require_once( dirname( __FILE__ ) . '/wp-load.php' );
 }
-
-
+$type = null;
+$data_temp = null;
+$data_ary = null;
+$dealer_id = $_POST['dealer_id'];
 if(!empty($_POST['offer_list'])) {
 $primary = '';
 $ids = array();
@@ -14,8 +16,10 @@ $col1 = array();
 $col2 = array();
 $col3 = array();
 $data_ary = array();
-$dealer_id = $_POST['dealer_id'];
+
+
 $i = 1;
+
 
 foreach($_POST['offer_list'] as $selected) {
     array_push($ids, $selected);
@@ -229,6 +233,7 @@ endif;
      $i++;
 
 }
+}
 
 $user_info = get_userdata($dealer_id);
 if (in_array('dealer', $user_info->roles)){
@@ -265,6 +270,7 @@ if (in_array('dealer', $user_info->roles)){
 
     );
 }
+
 $data_temp = $data_ary;
 unset($data_ary);
 $data_ary = array(  "list" => $data_temp,
@@ -278,6 +284,6 @@ header('Content-type: application/json');
 //fclose($fp);
 echo json_encode($data_ary, JSON_FORCE_OBJECT|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
 
-}
+
 
 ?>
